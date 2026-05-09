@@ -1,112 +1,55 @@
-# 🤖 DevelopersHub Corp — AI/ML Internship Tasks
+# DevelopersHub Corp — AI/ML Internship
 
-> A collection of hands-on machine learning tasks completed during the AI/ML Internship at **DevelopersHub Corp**.  
-> Each task is fully documented with a Jupyter Notebook, clean code, and visual outputs.
-
----
-
-## 📁 Repository Structure
-
-```
-ml-internship/
-│
-├── Task1_Iris_EDA/
-│   ├── task1_iris_analysis.ipynb   ← Main notebook
-│   ├── iris_analysis.py            ← Standalone Python script
-│   ├── fig1_scatter_matrix.png     ← Scatter plot matrix
-│   ├── fig2_histograms.png         ← Feature distributions
-│   ├── fig3_boxplots.png           ← Box plots & outliers
-│   └── README.md                   ← This file
-│
-└── (more tasks coming...)
-```
+This repo contains my work for the AI/ML Internship at DevelopersHub Corp.
+Each task has its own folder with a Jupyter notebook, code, and outputs.
 
 ---
+## Task 1 — Iris Dataset: Exploration & Visualization
 
-## ✅ Task 1 — Exploring and Visualizing the Iris Dataset
+The goal was to get comfortable with loading a dataset, running basic inspection,
+and creating visualizations to understand what the data looks like before any modeling.
 
-### 🎯 Objective
-Load, inspect, and visualize the Iris dataset to understand feature distributions,
-pairwise relationships, and outliers using `pandas`, `matplotlib`, and `seaborn`.
-
-### 📂 Dataset Used
+### Dataset
 
 | Property | Detail |
 |---|---|
-| **Name** | Iris Dataset |
-| **Source** | `sklearn.datasets.load_iris()` |
-| **Size** | 150 rows × 5 columns |
-| **Features** | `sepal_length`, `sepal_width`, `petal_length`, `petal_width` |
-| **Target** | `species` — Setosa, Versicolor, Virginica (50 each) |
-| **Missing Values** | None |
+| Name | Iris Dataset |
+| Source | `sklearn.datasets.load_iris()` |
+| Size | 150 rows × 5 columns |
+| Features | sepal_length, sepal_width, petal_length, petal_width |
+| Target | species — Setosa, Versicolor, Virginica (50 each) |
+| Missing Values | None |
 
-### 🛠️ Libraries & Tools
+### Libraries Used
 
 ```python
-pandas       # Data loading, inspection, statistics
-numpy        # Numerical operations
-matplotlib   # Core plotting engine
-seaborn      # High-level statistical visualization
-scipy        # KDE smoothing on histograms
-sklearn      # Dataset loading
+pandas, numpy, matplotlib, seaborn, scipy, sklearn
 ```
 
-### 📊 Visualizations Produced
+### What I did
 
-| Plot | Purpose |
-|---|---|
-| **Scatter Plot Matrix (4×4)** | Pairwise relationships between all features |
-| **Histograms (2×2)** | Distribution of each feature per species with KDE |
-| **Box Plots (1×4)** | Spread, IQR, and outlier detection per feature |
+- Loaded the dataset and inspected it using `.head()`, `.info()`, and `.describe()`
+- Plotted a scatter matrix to see relationships between features
+- Used histograms to understand how each feature is distributed across species
+- Used box plots to check for outliers
 
-### 🔍 Key Results & Findings
+### Key Findings
 
-1. **Setosa is linearly separable** from Versicolor and Virginica across nearly
-   all feature combinations — visible clearly in the scatter matrix.
-
-2. **Petal Length & Petal Width** are the most discriminative features:
-   - Setosa: petal length ≈ 1–2 cm
-   - Versicolor: petal length ≈ 3–5 cm
-   - Virginica: petal length ≈ 4.5–7 cm
-
-3. **Sepal Width** has the most outliers (detected via box plots), particularly
-   in the Setosa class.
-
-4. **The dataset is perfectly balanced** — 50 samples per species — making it
-   ideal for unbiased classification model training.
-
-5. Versicolor and Virginica **overlap slightly** in sepal features, meaning
-   a non-linear model would be needed to separate them perfectly.
-
-### 📸 Preview
-
-| Scatter Matrix | Histograms | Box Plots |
-|---|---|---|
-| ![scatter](fig1_scatter_matrix.png) | ![hist](fig2_histograms.png) | ![box](fig3_boxplots.png) |
+- Setosa is clearly separable from the other two species — especially by petal size
+- Petal Length and Petal Width are the most useful features for telling species apart
+- Sepal Width had the most outliers, mostly in Setosa
+- Versicolor and Virginica overlap a bit, so a simple linear model might struggle there
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ```bash
-# Clone this repo
-git clone https://github.com/YOUR_USERNAME/ml-internship.git
-cd ml-internship/Task1_Iris_EDA
-
-# Install dependencies
 pip install pandas numpy matplotlib seaborn scikit-learn scipy
-
-# Run the notebook
 jupyter notebook task1_iris_analysis.ipynb
-
-# OR run the standalone script
-python iris_analysis.py
 ```
 
 ---
 
-## 👤 Author
-
-**[Your Name]**  
-AI/ML Intern @ DevelopersHub Corp  
-Submitted via Google Classroom
+**Intern:** Rabiya Zaheer
+**Organization:** DevelopersHub Corp
