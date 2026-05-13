@@ -107,5 +107,52 @@ jupyter notebook Task2_Stock_Prediction/task2_stock_prediction.ipynb
 
 ---
 
-**Intern:** [Your Name]
-**Organization:** DevelopersHub Corp
+## Task 3 — Heart Disease Prediction (Binary Classification)
+
+The goal was to predict whether a patient is at risk of heart disease using
+clinical health measurements. Built and compared two classification models.
+
+### Dataset
+
+| Property | Detail |
+|---|---|
+| Name | Heart Disease UCI Dataset |
+| Source | Kaggle / UCI Machine Learning Repository |
+| Size | 303 patients × 14 columns |
+| Features | 13 clinical features (age, sex, chest pain type, cholesterol, etc.) |
+| Target | 0 = No Disease, 1 = Heart Disease |
+| Missing Values | 6 (handled via imputation) |
+
+### Libraries Used
+
+```python
+pandas, numpy, matplotlib, seaborn, sklearn
+```
+
+### What I did
+
+- Inspected and cleaned the dataset — imputed 6 missing values in `ca` and `thal`
+- Performed EDA: age distribution, chest pain type analysis, correlation heatmap,
+  scatter plots, and box plots of key clinical features
+- Split data 80/20 with stratification to preserve class balance
+- Trained Logistic Regression and Decision Tree classifiers
+- Evaluated using Accuracy, ROC-AUC, 5-fold Cross Validation, and Confusion Matrix
+- Analyzed feature importance from both models
+
+### Key Findings
+
+| Model | Accuracy | ROC-AUC | CV Score |
+|---|---|---|---|
+| Logistic Regression | 96.7% | 0.993 | 89.3% |
+| Decision Tree | 73.8% | 0.754 | 72.7% |
+
+- Logistic Regression significantly outperformed Decision Tree
+- Most important features: Major Vessels (ca), Thalassemia type (thal),
+  ST Depression (oldpeak), Exercise Angina (exang)
+- Heart disease patients showed notably lower max heart rate during exercise
+- Cholesterol alone was a weak predictor — consistent with medical literature
+
+
+**Intern:** Rabiya Zaheer
+**Intern ID:** DHC 1622
+**Organization:** DevelopersHub Corporation 
