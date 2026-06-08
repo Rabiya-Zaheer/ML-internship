@@ -26,7 +26,7 @@ classifier = pipeline(
     return_all_scores=True,
     device=0 if torch.cuda.is_available() else -1  # use GPU if available
 )
-print("Model loaded ✅")
+print("Model loaded ")
 
 
 # ── Prediction function ──────────────────────────────────────────────────────
@@ -66,7 +66,7 @@ examples = [
 with gr.Blocks(theme=gr.themes.Soft(), title="News Topic Classifier") as demo:
 
     gr.Markdown("""
-    # 📰 News Topic Classifier
+    #  News Topic Classifier
     **Fine-tuned BERT model** for classifying news headlines into 4 categories.
     
     Trained on the [AG News dataset](https://huggingface.co/datasets/ag_news) 
