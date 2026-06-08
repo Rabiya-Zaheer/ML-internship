@@ -104,7 +104,6 @@ jupyter notebook Task1_Iris_EDA/task1_iris_analysis.ipynb
 # Task 2
 jupyter notebook Task2_Stock_Prediction/task2_stock_prediction.ipynb
 ```
-
 ---
 
 ## Task 3 — Heart Disease Prediction (Binary Classification)
@@ -152,7 +151,122 @@ pandas, numpy, matplotlib, seaborn, sklearn
 - Heart disease patients showed notably lower max heart rate during exercise
 - Cholesterol alone was a weak predictor — consistent with medical literature
 
+---
 
-**Intern:** Rabiya Zaheer
+## Task 4 — News Topic Classifier Using BERT (NLP + Transformers)
+
+Fine-tuned a BERT-style transformer model to classify news headlines into
+4 topic categories using the AG News dataset. Built a live Gradio web app
+for real-time classification.
+
+### Dataset
+
+| Property | Detail |
+|---|---|
+| Name | AG News Dataset |
+| Source | Hugging Face Datasets (`ag_news`) |
+| Size | 127,600 samples (120K train / 7.6K test) |
+| Classes | World, Sports, Business, Sci/Tech (balanced) |
+| Input | News headline text |
+
+### Libraries Used
+
+```python
+transformers, datasets, torch, gradio, scikit-learn, numpy
+```
+
+### What I did
+
+- Loaded AG News via Hugging Face `datasets` library
+- Tokenized headlines using `bert-base-uncased` WordPiece tokenizer
+  (adding [CLS], [SEP], attention masks, padding)
+- Fine-tuned `bert-base-uncased` (110M params) with a classification head
+  using Hugging Face `Trainer` API (3 epochs, lr=2e-5, batch=32)
+- Evaluated with accuracy, F1 macro, per-class F1, and confusion matrix
+- Deployed the model as a live Gradio web interface (`app.py`)
+
+### Key Results
+
+| Metric | Score |
+|---|---|
+| Accuracy | ~94–95% |
+| F1 Macro | ~0.94–0.95 |
+
+- Sports headlines were easiest to classify (domain-specific vocabulary)
+- Business/World sometimes overlap (geopolitical-economic news)
+- Fine-tuning 3 epochs on 8K examples achieves 94%+ — power of transfer learning
+- Gradio `share=True` gives instant public URL for live demo
+
+### How to run Gradio app
+
+```bash
+python app.py
+# Opens at http://localhost:7860
+# share=True gives a public URL
+```
+
+---
+
+## Task 5 — Customer Churn Prediction (End-to-End ML Pipeline)
+
+Built a production-ready ML pipeline using scikit-learn's Pipeline API for
+predicting telecom customer churn. Full preprocessing, training, GridSearchCV
+tuning, and joblib export in one reusable object.
+
+### Dataset
+
+| Property | Detail |
+|---|---|
+| Name | Telco Customer Churn |
+| Source | IBM / Kaggle |
+| Size | 7,043 customers × 20 features |
+| Target | Churn: Yes/No |
+| Class Balance | ~81% No, ~19% Yes |
+| Missing Values | 11 in TotalCharges (handled via pipeline imputation) |
+
+### Libraries Used
+
+```python
+pandas, numpy, matplotlib, seaborn, scikit-learn, joblib
+```
+
+### What I did
+
+- Built ColumnTransformer with separate pipelines per feature type:
+  numeric (median impute → StandardScaler), binary (mode impute → OHE),
+  nominal (mode impute → OneHotEncoder)
+- Chained preprocessing + classifier into a single sklearn Pipeline
+- Fitted Logistic Regression and Random Forest baselines
+- Ran GridSearchCV (5-fold StratifiedKFold) over 16 LR + 12 RF param combos
+- Evaluated with Accuracy, F1 Macro, ROC-AUC, confusion matrix
+- Extracted feature importances from best Random Forest
+- Exported both tuned pipelines as .joblib files for production use
+
+### Key Results
+
+| Model | Accuracy | ROC-AUC | Best CV AUC |
+|---|---|---|---|
+| Logistic Regression | 81.1% | 0.761 | 0.738 |
+| Random Forest | 81.0% | 0.756 | 0.730 |
+
+- Contract type was by far the most important predictor (~50% RF importance)
+- Month-to-month customers churn ~4× more than 2-year contract customers
+- Tenure, monthly charges, and internet service type were next most important
+- ROC-AUC used as primary metric (accuracy misleading on 81/19 imbalanced data)
+
+### Using the exported pipeline
+
+```python
+import joblib, pandas as pd
+
+pipeline = joblib.load('pipeline_logistic_regression.joblib')
+new_data = pd.DataFrame([{...}])  # raw customer data, no preprocessing needed
+prediction   = pipeline.predict(new_data)        # 0=No Churn, 1=Churn
+probability  = pipeline.predict_proba(new_data)[:,1]  # churn probability
+```
+---
+---
+
+**Intern Name:** Rabiya Zaheer
 **Intern ID:** DHC 1622
-**Organization:** DevelopersHub Corporation 
+**Organization:** DevelopersHub Corp
