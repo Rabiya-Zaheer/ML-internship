@@ -104,7 +104,9 @@ jupyter notebook Task1_Iris_EDA/task1_iris_analysis.ipynb
 # Task 2
 jupyter notebook Task2_Stock_Prediction/task2_stock_prediction.ipynb
 ```
+
 ---
+
 
 ## Task 3 — Heart Disease Prediction (Binary Classification)
 
@@ -264,9 +266,55 @@ new_data = pd.DataFrame([{...}])  # raw customer data, no preprocessing needed
 prediction   = pipeline.predict(new_data)        # 0=No Churn, 1=Churn
 probability  = pipeline.predict_proba(new_data)[:,1]  # churn probability
 ```
+
 ---
+
+## Task 6 — Multimodal Housing Price Prediction (Images + Tabular)
+
+Built a multimodal ML pipeline combining CNN-style image feature extraction
+with structured tabular data to predict house prices. Compared three variants:
+Tabular Only, Image Only, and Multimodal Fused.
+
+### Dataset
+
+| Property | Detail |
+|---|---|
+| Images | 800 house photos (JPG, 128×128) |
+| Tabular | sqft, bedrooms, bathrooms, age, garage, neighborhood, condition |
+| Target | House price ($88K–$502K) |
+| Split | 68% train / 12% val / 20% test |
+
+### Libraries Used
+
+```python
+pandas, numpy, matplotlib, seaborn, scikit-learn, scipy, PIL
+```
+
+### What I did
+
+- Generated 800 synthetic house images with price-correlated visual properties
+- Extracted 50 CNN-style features per image: color histograms (R,G,B),
+  Sobel edge detection, texture variance, spatial brightness pooling
+- Preprocessed tabular features (StandardScaler + OneHotEncoder)
+- Concatenated image (50-dim) + tabular (12-dim) → 62-dim fused vector
+- Trained GBM on all 3 input types for fair comparison
+- Evaluated with MAE, RMSE, R², MAPE
+
+### Key Results
+
+| Model | MAE | RMSE | R² |
+|---|---|---|---|
+| Tabular Only | $17,693 | $22,213 | 0.880 |
+| Image Only | $2,076 | $6,962 | 0.988 |
+| **Multimodal Fused** | **$2,062** | **$7,070** | **0.988** |
+
+- Multimodal fusion reduced MAE by 88.3% vs tabular-only
+- Ground/bottom brightness were top image predictors (house condition signal)
+- Feature concatenation + GBM is a powerful, interpretable fusion strategy
 ---
 
 **Intern Name:** Rabiya Zaheer
 **Intern ID:** DHC 1622
 **Organization:** DevelopersHub Corp
+
+---
